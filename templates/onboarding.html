@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f2f2f2;
+        }
+
+        footer {
+            margin-bottom: 10%;
+        }
+
+        .container {
+            max-width: 80%;
+            margin: 10% 10%;
+            padding-top: 50px;
+            align-items: center;
+        }
+
+        .image-frame {
+            border: 2px solid #ccc;
+            padding: 10%;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            width: 60%;
+            height: auto;
+        }
+
+        .image {
+            width: 50%;
+        }
+
+        .login-button {
+            display: block;
+            margin: 0 auto;
+            margin-bottom: 20px;
+        }
+
+        .start-button {
+            color: #007bff;
+            text-decoration: none;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .footer {
+            margin-top: 50px;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img src="https://pbs.twimg.com/media/FYrBXGoUUAARusu.jpg" alt="Onboarding Image" class="image-frame">
+        <a href="{{ url_for('login') }}" class="login-button">
+            <img src="https://developers.kakao.com/assets/img/about/logos/kakaologin/kr/kakao_account_login_btn_medium_wide.png"
+                alt="Login with Kakao">
+        </a>
+        <a href="{{ url_for('main') }}" class="start-button">로그인 없이 시작하기</a>
+    </div>
+</body>
+<footer>
+    <div>
+        &copy; 2024 네컷사진. All rights reserved.
+    </div>
+</footer>
+</html>
