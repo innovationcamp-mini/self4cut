@@ -29,11 +29,17 @@
       }
       .container {
         position: relative;
-        width: 58%;
+        width: 55%;
+        padding: 20px;
+      }
+      .palleteContainer {
+        position: relative;
+        width: 75%;
         padding: 20px;
       }
       .basic,
-      .wide {
+      .wide,
+      .pallete {
         background-color: white;
         padding: 20px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -44,6 +50,11 @@
         align-items: center;
         width: 100%;
       }
+
+      .basic {
+        width: 250px;
+      }
+
       .basic .inner-div,
       .wide .inner-div {
         background-color: #dee2e6;
@@ -61,19 +72,17 @@
       .wide .inner-div {
         height: 235px;
       }
-      .arrow {
+      .arrowNext {
         position: absolute;
         right: 20px;
         top: 50%;
-        transform: translateY(-50%);
-        background-color: #feffd5;
-        border: solid 1px #000;
-        border-radius: 10%;
-        padding: 10px;
         cursor: pointer;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+      }
+      .arrowPrev {
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        cursor: pointer;
       }
 
       .clicked {
@@ -85,6 +94,20 @@
         height: 100%;
         width: 100%;
       }
+
+      .inner-div input[type="file"] {
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        cursor: pointer;
+      }
+      .inner-div label {
+        position: absolute;
+        z-index: 1;
+        color: #6c757d;
+        font-size: 1.2rem;
+      }
     </style>
   </head>
   <body>
@@ -93,16 +116,16 @@
         <div class="col-md-4">
           <div class="basic" id="basicSection">
             <div class="inner-div">
-              <img src="../images/ex_basic1.jpeg" alt="ex_wide1" />
+              <img src="../images/ex_basic1.jpeg" alt="ex_basic1" />
             </div>
             <div class="inner-div">
-              <img src="../images/ex_basic2.jpeg" alt="ex_wide1" />
+              <img src="../images/ex_basic2.jpeg" alt="ex_basic2" />
             </div>
             <div class="inner-div">
-              <img src="../images/ex_basic3.jpeg" alt="ex_wide1" />
+              <img src="../images/ex_basic3.jpeg" alt="ex_basic3" />
             </div>
             <div class="inner-div">
-              <img src="../images/ex_basic4.jpeg" alt="ex_wide1" />
+              <img src="../images/ex_basic4.jpeg" alt="ex_basic4" />
             </div>
           </div>
           <h2 class="text-center mt-3">Basic</h2>
@@ -116,17 +139,17 @@
             </div>
             <div class="col-6">
               <div class="inner-div">
-                <img src="../images/ex_wide2.jpeg" alt="ex_wide1" />
+                <img src="../images/ex_wide2.jpeg" alt="ex_wide2" />
               </div>
             </div>
             <div class="col-6">
               <div class="inner-div">
-                <img src="../images/ex_wide3.jpeg" alt="ex_wide1" />
+                <img src="../images/ex_wide3.jpeg" alt="ex_wide3" />
               </div>
             </div>
             <div class="col-6">
               <div class="inner-div">
-                <img src="../images/ex_wide4.jpeg" alt="ex_wide1" />
+                <img src="../images/ex_wide4.jpeg" alt="ex_wide4" />
               </div>
             </div>
           </div>
@@ -135,12 +158,127 @@
       </div>
     </div>
 
-    <button class="arrow">
-      <p class="text-xl" id="nextStep">
-        NEXT <i class="fa-solid fa-circle-arrow-right"></i>
-      </p>
-    </button>
-    <!-- <div class="container" id="step2"></div> -->
+    <p class="text-xl arrowNext" id="nextStep" onclick="toggleStep()">
+      <i class="fa-solid fa-circle-arrow-right" style="font-size: 50px"></i>
+    </p>
+
+    <p
+      class="text-xl arrowPrev"
+      id="prevStep"
+      onclick="toggleStep()"
+      style="display: none"
+    >
+      <i class="fa-solid fa-circle-arrow-left" style="font-size: 50px"></i>
+    </p>
+
+    <div class="palleteContainer" id="step2" style="display: none">
+      <div class="row align-items-center">
+        <!-- Step 2 content goes here -->
+        <div class="col" id="basicContent" style="display: none">
+          <div class="basic">
+            <div class="inner-div">
+              <label for="basicFile1">사진을 선택하세요</label>
+              <input
+                type="file"
+                id="basicFile1"
+                accept="image/*"
+                onchange="previewImage(event, 'basicFile1')"
+              />
+              <img id="basicImg1" alt="Preview" />
+            </div>
+            <div class="inner-div">
+              <label for="basicFile2">사진을 선택하세요</label>
+              <input
+                type="file"
+                id="basicFile2"
+                accept="image/*"
+                onchange="previewImage(event, 'basicFile2')"
+              />
+              <img id="basicImg2" alt="Preview" />
+            </div>
+            <div class="inner-div">
+              <label for="basicFile3">사진을 선택하세요</label>
+              <input
+                type="file"
+                id="basicFile3"
+                accept="image/*"
+                onchange="previewImage(event, 'basicFile3')"
+              />
+              <img id="basicImg3" alt="Preview" />
+            </div>
+            <div class="inner-div">
+              <label for="basicFile4">사진을 선택하세요</label>
+              <input
+                type="file"
+                id="basicFile4"
+                accept="image/*"
+                onchange="previewImage(event, 'basicFile4')"
+              />
+              <img id="basicImg4" alt="Preview" />
+            </div>
+          </div>
+        </div>
+        <div class="col" id="wideContent" style="display: none">
+          <div class="row wide" id="wideSection">
+            <div class="col-6">
+              <div class="inner-div">
+                <label for="wideFile1">사진을 선택하세요</label>
+                <input
+                  type="file"
+                  id="wideFile1"
+                  accept="image/*"
+                  onchange="previewImage(event, 'wideFile1')"
+                />
+                <img id="wideImg1" alt="Preview" />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="inner-div">
+                <label for="wideFile2">사진을 선택하세요</label>
+                <input
+                  type="file"
+                  id="wideFile2"
+                  accept="image/*"
+                  onchange="previewImage(event, 'wideFile2')"
+                />
+                <img id="wideImg2" alt="Preview" />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="inner-div">
+                <label for="wideFile3">사진을 선택하세요</label>
+                <input
+                  type="file"
+                  id="wideFile3"
+                  accept="image/*"
+                  onchange="previewImage(event, 'wideFile3')"
+                />
+                <img id="wideImg3" alt="Preview" />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="inner-div">
+                <label for="wideFile4">사진을 선택하세요</label>
+                <input
+                  type="file"
+                  id="wideFile4"
+                  accept="image/*"
+                  onchange="previewImage(event, 'wideFile4')"
+                />
+                <img id="wideImg4" alt="Preview" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-7" id="palleteContent">
+          <div class="pallete" id="palleteSection">hihi</div>
+        </div>
+        <div>
+          <button onclick="sendPhotos()">사진전송</button>
+        </div>
+      </div>
+    </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script
@@ -149,7 +287,10 @@
       crossorigin="anonymous"
     ></script>
     <script>
-      <!-- Basic or Wide 선택 시 함수 -->
+      // 선택된 섹션을 저장하는 전역 변수
+      let selectedSection = null;
+
+      // Basic or Wide 선택 시 함수
       document
         .getElementById("basicSection")
         .addEventListener("click", function () {
@@ -157,6 +298,7 @@
           document.getElementById("nextStep").classList.add("fa-beat");
           deselectAll();
           this.classList.add("clicked");
+          selectedSection = "Basic";
         });
 
       document
@@ -166,11 +308,105 @@
           document.getElementById("nextStep").classList.add("fa-beat");
           deselectAll();
           this.classList.add("clicked");
+          selectedSection = "Wide";
         });
 
       function deselectAll() {
         document.getElementById("basicSection").classList.remove("clicked");
         document.getElementById("wideSection").classList.remove("clicked");
+      }
+
+      // Next, Prev 버튼 클릭
+      function toggleStep() {
+        var step1 = document.getElementById("step1");
+        var step2 = document.getElementById("step2");
+        var arrowNext = document.getElementById("nextStep");
+        var arrowPrev = document.getElementById("prevStep");
+
+        if (step1.style.display === "none") {
+          step1.style.display = "block";
+          step2.style.display = "none";
+          arrowNext.style.display = "block";
+          arrowPrev.style.display = "none";
+        } else {
+          step1.style.display = "none";
+          step2.style.display = "block";
+          arrowNext.style.display = "none";
+          arrowPrev.style.display = "block";
+          // 선택된 섹션에 따라 다른 div 표시
+          if (selectedSection === "Basic") {
+            document.getElementById("basicContent").style.display = "block";
+            document.getElementById("wideContent").style.display = "none";
+          } else if (selectedSection === "Wide") {
+            document.getElementById("basicContent").style.display = "none";
+            document.getElementById("wideContent").style.display = "block";
+          }
+        }
+      }
+
+      // 이미지 미리보기 함수
+      function previewImage(event, inputId) {
+        var input = document.getElementById(inputId);
+        var file = input.files[0];
+        var reader = new FileReader();
+        var imgId = inputId.replace("File", "Img");
+        var img = document.getElementById(imgId);
+
+        reader.onloadend = function () {
+          img.src = reader.result;
+          img.style.display = "block";
+          input.previousElementSibling.style.display = "none";
+        };
+
+        if (file) {
+          reader.readAsDataURL(file);
+        }
+      }
+
+      //이미지 전송
+      function sendPhotos() {
+        // 프레임형태 구분 (Basic or Wide)
+        const selectedSection = document.querySelector(".clicked").id;
+
+        // 해당 프레임에 등록된 이미지 추출
+        let fileInputs;
+        let imageIds;
+        if (selectedSection === "basicSection") {
+          fileInputs = document.querySelectorAll(
+            "#basicContent input[type='file']"
+          );
+          imageIds = ["basicImg1", "basicImg2", "basicImg3", "basicImg4"];
+        } else if (selectedSection === "wideSection") {
+          fileInputs = document.querySelectorAll(
+            "#wideContent input[type='file']"
+          );
+          imageIds = ["wideImg1", "wideImg2", "wideImg3", "wideImg4"];
+        }
+
+        // 파일전송을위한 formData 생성
+        const formData = new FormData();
+
+        // formData에 파일 추가
+        fileInputs.forEach((input, index) => {
+          const file = input.files[0];
+          const imageId = imageIds[index];
+          formData.append("photos", file, imageId);
+        });
+
+        // Send the FormData object to the server using fetch or XMLHttpRequest
+        // Replace the URL with the actual server endpoint
+        fetch("http://localhost:5000/api/upload", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => {
+            // Handle the response from the server
+            console.log("Photos uploaded successfully!");
+          })
+          .catch((error) => {
+            // Handle any errors that occurred during the upload
+            console.error("Error uploading photos:", error);
+          });
       }
     </script>
   </body>
