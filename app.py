@@ -1,16 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify, session
-import sqlite3
-import requests
+from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask_cors import CORS
 from config import CLIENT_ID, SECRET_KEY, REDIRECT_URI
 
-# 로그인
 app = Flask(__name__)
-app.config.from_pyfile('config.py')
-
-
-def get_db():
-    conn = sqlite3.connect(app.config['DATABASE_PATH'])
-    return conn
+CORS(app)
 
 
 # 카카오 설정
@@ -18,20 +11,33 @@ KAKAO_OAUTH_URL = 'https://kauth.kakao.com/oauth/authorize'
 KAKAO_TOKEN_URL = 'https://kauth.kakao.com/oauth/token'
 KAKAO_PROFILE_URL = 'https://kapi.kakao.com/v2/user/me'
 
+# DB 기본 코드
+import os
+from flask_sqlalchemy import SQLAlchemy
 
-def init_db():
-    with app.app_context():
-        db = get_db()
-        cursor = db.cursor()
-        cursor.execute('''
-            CREATE TABLE IF NOT EXISTS users (
-                id INTEGER PRIMARY KEY,
-                kakao_id TEXT,
-                nickname TEXT
-            )
-        ''')
-        db.commit()
+basedir = os.path.abspath(os.path.dirname(__file__))
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'database.db')
 
+db = SQLAlchemy(app)
+
+class Users(db.Model):
+  id = db.Column(db.Integer, primary_key=True)
+  kakao_id = db.Column(db.String(100), nullable=False)
+  nickname = db.Column(db.String(100), nullable=False)
+  
+class Image(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Integer, nullable=False)
+    image1 = db.Column(db.String(100), nullable=False)
+    image2 = db.Column(db.String(100), nullable=False)
+    image3 = db.Column(db.String(100), nullable=False)
+    image4 = db.Column(db.String(100), nullable=False)
+    type = db.Column(db.String(100), nullable=False)
+    background = db.Column(db.String(100), nullable=False)
+    shared = db.Column(db.Boolean, nullable=False)
+
+with app.app_context():
+    db.create_all()
 
 @app.route('/')
 def home():
@@ -114,7 +120,39 @@ def main():
 @app.route('/test')
 def test():
     return render_template('test.html')
+  
+@app.route("/create")
+def create_frame():
+    return render_template('frame.html')
 
-if __name__ == '__main__':
-    init_db()
-    app.run(host='0.0.0.0', port=5001, debug=True)
+@app.route("/api/upload", methods=['POST'])
+def photo_upload():
+
+    image1 = request.files.get("photos", None)
+    image2 = request.files.get("photos", None)
+    image3 = request.files.get("photos", None)
+    image4 = request.files.get("photos", None)
+
+    # Save the images to a directory or process them as needed
+    # For example, you can save them to a folder using the save() method
+    image1.save(os.path.join(app.config['UPLOAD_FOLDER'], image1.filename))
+    image2.save(os.path.join(app.config['UPLOAD_FOLDER'], image2.filename))
+    image3.save(os.path.join(app.config['UPLOAD_FOLDER'], image3.filename))
+    image4.save(os.path.join(app.config['UPLOAD_FOLDER'], image4.filename))
+
+    # Create a new Image object and save it to the database
+    image = Image(
+        user_id=1,  # Replace with the actual user ID
+        image1=image1.filename,
+        image2=image2.filename,
+        image3=image3.filename,
+        image4=image4.filename,
+        type="type_placeholder",
+        background="background_placeholder",
+        shared=False
+    )
+    db.session.add(image)
+    db.session.commit()
+    return redirect(url_for('create_frame'))
+if __name__ == "__main__":
+    app.run(debug=True)
