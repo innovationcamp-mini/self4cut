@@ -116,16 +116,16 @@
         <div class="col-md-4">
           <div class="basic" id="basicSection">
             <div class="inner-div">
-              <img src="../images/ex_basic1.jpeg" alt="ex_basic1" />
+              <img src="../static/images/ex_basic1.jpeg" alt="ex_basic1" />
             </div>
             <div class="inner-div">
-              <img src="../images/ex_basic2.jpeg" alt="ex_basic2" />
+              <img src="../static/images/ex_basic2.jpeg" alt="ex_basic2" />
             </div>
             <div class="inner-div">
-              <img src="../images/ex_basic3.jpeg" alt="ex_basic3" />
+              <img src="../static/images/ex_basic3.jpeg" alt="ex_basic3" />
             </div>
             <div class="inner-div">
-              <img src="../images/ex_basic4.jpeg" alt="ex_basic4" />
+              <img src="../static/images/ex_basic4.jpeg" alt="ex_basic4" />
             </div>
           </div>
           <h2 class="text-center mt-3">Basic</h2>
@@ -134,22 +134,22 @@
           <div class="row wide" id="wideSection">
             <div class="col-6">
               <div class="inner-div">
-                <img src="../images/ex_wide1.jpeg" alt="ex_wide1" />
+                <img src="../static/images/ex_wide1.jpeg" alt="ex_wide1" />
               </div>
             </div>
             <div class="col-6">
               <div class="inner-div">
-                <img src="../images/ex_wide2.jpeg" alt="ex_wide2" />
+                <img src="../static/images/ex_wide2.jpeg" alt="ex_wide2" />
               </div>
             </div>
             <div class="col-6">
               <div class="inner-div">
-                <img src="../images/ex_wide3.jpeg" alt="ex_wide3" />
+                <img src="../static/images/ex_wide3.jpeg" alt="ex_wide3" />
               </div>
             </div>
             <div class="col-6">
               <div class="inner-div">
-                <img src="../images/ex_wide4.jpeg" alt="ex_wide4" />
+                <img src="../static/images/ex_wide4.jpeg" alt="ex_wide4" />
               </div>
             </div>
           </div>
@@ -172,113 +172,132 @@
     </p>
 
     <div class="palleteContainer" id="step2" style="display: none">
-      <div class="row align-items-center">
-        <!-- Step 2 content goes here -->
-        <div class="col" id="basicContent" style="display: none">
-          <div class="basic">
-            <div class="inner-div">
-              <label for="basicFile1">사진을 선택하세요</label>
-              <input
-                type="file"
-                id="basicFile1"
-                accept="image/*"
-                onchange="previewImage(event, 'basicFile1')"
-              />
-              <img id="basicImg1" alt="Preview" />
-            </div>
-            <div class="inner-div">
-              <label for="basicFile2">사진을 선택하세요</label>
-              <input
-                type="file"
-                id="basicFile2"
-                accept="image/*"
-                onchange="previewImage(event, 'basicFile2')"
-              />
-              <img id="basicImg2" alt="Preview" />
-            </div>
-            <div class="inner-div">
-              <label for="basicFile3">사진을 선택하세요</label>
-              <input
-                type="file"
-                id="basicFile3"
-                accept="image/*"
-                onchange="previewImage(event, 'basicFile3')"
-              />
-              <img id="basicImg3" alt="Preview" />
-            </div>
-            <div class="inner-div">
-              <label for="basicFile4">사진을 선택하세요</label>
-              <input
-                type="file"
-                id="basicFile4"
-                accept="image/*"
-                onchange="previewImage(event, 'basicFile4')"
-              />
-              <img id="basicImg4" alt="Preview" />
-            </div>
-          </div>
-        </div>
-        <div class="col" id="wideContent" style="display: none">
-          <div class="row wide" id="wideSection">
-            <div class="col-6">
+      <form id="uploadForm" enctype="multipart/form-data">
+        <div class="row align-items-center">
+          <!-- Step 2 content goes here -->
+          <div class="col" id="basicContent" style="display: none">
+            <div class="basic">
               <div class="inner-div">
-                <label for="wideFile1">사진을 선택하세요</label>
+                <label for="basicFile1">사진을 선택하세요</label>
                 <input
                   type="file"
-                  id="wideFile1"
+                  id="basicFile1"
+                  name="photos"
                   accept="image/*"
-                  onchange="previewImage(event, 'wideFile1')"
+                  onchange="previewImage(event, 'basicFile1')"
                 />
-                <img id="wideImg1" alt="Preview" />
+                <img id="basicImg1" alt="Preview" />
               </div>
-            </div>
-            <div class="col-6">
               <div class="inner-div">
-                <label for="wideFile2">사진을 선택하세요</label>
+                <label for="basicFile2">사진을 선택하세요</label>
                 <input
                   type="file"
-                  id="wideFile2"
+                  id="basicFile2"
+                  name="photos"
                   accept="image/*"
-                  onchange="previewImage(event, 'wideFile2')"
+                  onchange="previewImage(event, 'basicFile2')"
                 />
-                <img id="wideImg2" alt="Preview" />
+                <img id="basicImg2" alt="Preview" />
               </div>
-            </div>
-            <div class="col-6">
               <div class="inner-div">
-                <label for="wideFile3">사진을 선택하세요</label>
+                <label for="basicFile3">사진을 선택하세요</label>
                 <input
                   type="file"
-                  id="wideFile3"
+                  id="basicFile3"
+                  name="photos"
                   accept="image/*"
-                  onchange="previewImage(event, 'wideFile3')"
+                  onchange="previewImage(event, 'basicFile3')"
                 />
-                <img id="wideImg3" alt="Preview" />
+                <img id="basicImg3" alt="Preview" />
               </div>
-            </div>
-            <div class="col-6">
               <div class="inner-div">
-                <label for="wideFile4">사진을 선택하세요</label>
+                <label for="basicFile4">사진을 선택하세요</label>
                 <input
                   type="file"
-                  id="wideFile4"
+                  id="basicFile4"
+                  name="photos"
                   accept="image/*"
-                  onchange="previewImage(event, 'wideFile4')"
+                  onchange="previewImage(event, 'basicFile4')"
                 />
-                <img id="wideImg4" alt="Preview" />
+                <img id="basicImg4" alt="Preview" />
               </div>
             </div>
           </div>
-        </div>
+          <div class="col" id="wideContent" style="display: none">
+            <div class="row wide" id="wideSection">
+              <div class="col-6">
+                <div class="inner-div">
+                  <label for="wideFile1">사진을 선택하세요</label>
+                  <input
+                    type="file"
+                    id="wideFile1"
+                    name="photos"
+                    accept="image/*"
+                    onchange="previewImage(event, 'wideFile1')"
+                  />
+                  <img id="wideImg1" alt="Preview" />
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="inner-div">
+                  <label for="wideFile2">사진을 선택하세요</label>
+                  <input
+                    type="file"
+                    id="wideFile2"
+                    name="photos"
+                    accept="image/*"
+                    onchange="previewImage(event, 'wideFile2')"
+                  />
+                  <img id="wideImg2" alt="Preview" />
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="inner-div">
+                  <label for="wideFile3">사진을 선택하세요</label>
+                  <input
+                    type="file"
+                    id="wideFile3"
+                    name="photos"
+                    accept="image/*"
+                    onchange="previewImage(event, 'wideFile3')"
+                  />
+                  <img id="wideImg3" alt="Preview" />
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="inner-div">
+                  <label for="wideFile4">사진을 선택하세요</label>
+                  <input
+                    type="file"
+                    id="wideFile4"
+                    name="photos"
+                    accept="image/*"
+                    onchange="previewImage(event, 'wideFile4')"
+                  />
+                  <img id="wideImg4" alt="Preview" />
+                </div>
+              </div>
+            </div>
+          </div>
 
-        <div class="col-md-7" id="palleteContent">
-          <div class="pallete" id="palleteSection">hihi</div>
+          <div class="col-md-7" id="palleteContent">
+            <div class="pallete" id="palleteSection">hihi</div>
+          </div>
+          <div>
+            <button type="button" onclick="sendPhotos()" id="sendPhotosButton">
+              사진전송
+            </button>
+            <button type="button" id="downloadButton" style="display: none">
+              다운로드
+            </button>
+            <button type="button" id="shareButton" style="display: none">
+              게시하기
+            </button>
+          </div>
         </div>
-        <div>
-          <button onclick="sendPhotos()">사진전송</button>
-        </div>
-      </div>
+      </form>
     </div>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script
@@ -363,49 +382,21 @@
         }
       }
 
-      //이미지 전송
+      // 이미지 전송 함수
       function sendPhotos() {
-        // 프레임형태 구분 (Basic or Wide)
-        const selectedSection = document.querySelector(".clicked").id;
-
-        // 해당 프레임에 등록된 이미지 추출
-        let fileInputs;
-        let imageIds;
-        if (selectedSection === "basicSection") {
-          fileInputs = document.querySelectorAll(
-            "#basicContent input[type='file']"
-          );
-          imageIds = ["basicImg1", "basicImg2", "basicImg3", "basicImg4"];
-        } else if (selectedSection === "wideSection") {
-          fileInputs = document.querySelectorAll(
-            "#wideContent input[type='file']"
-          );
-          imageIds = ["wideImg1", "wideImg2", "wideImg3", "wideImg4"];
-        }
-
-        // 파일전송을위한 formData 생성
-        const formData = new FormData();
-
-        // formData에 파일 추가
-        fileInputs.forEach((input, index) => {
-          const file = input.files[0];
-          const imageId = imageIds[index];
-          formData.append("photos", file, imageId);
-        });
-
-        // Send the FormData object to the server using fetch or XMLHttpRequest
-        // Replace the URL with the actual server endpoint
-        fetch("http://localhost:5000/api/upload", {
+        // formData를 사용하여 파일 전송
+        const formData = new FormData(document.getElementById("uploadForm"));
+        formData.append("section", selectedSection); // 구분값 추가
+        fetch("/api/upload", {
           method: "POST",
           body: formData,
         })
-          .then((response) => {
-            // Handle the response from the server
-            console.log("Photos uploaded successfully!");
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("이미지 전송 성공:", data);
           })
           .catch((error) => {
-            // Handle any errors that occurred during the upload
-            console.error("Error uploading photos:", error);
+            console.error("이미지 전송 에러:", error);
           });
       }
     </script>
