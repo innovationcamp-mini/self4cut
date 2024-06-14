@@ -68,7 +68,7 @@ def oauth():
         'redirect_uri': REDIRECT_URI,
         'code': code,
     }
-    token_response = request.post(KAKAO_TOKEN_URL, data=token_data)
+    token_response = requests.post(KAKAO_TOKEN_URL, data=token_data)
     token_json = token_response.json()
 
     if token_response.status_code != 200:
@@ -79,7 +79,7 @@ def oauth():
         'Authorization': f'Bearer {access_token}',
     }
 
-    profile_response = request.get(KAKAO_PROFILE_URL, headers=profile_headers)
+    profile_response = requests.get(KAKAO_PROFILE_URL, headers=profile_headers)
     profile_json = profile_response.json()
 
     if profile_response.status_code != 200:
