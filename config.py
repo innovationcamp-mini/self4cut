@@ -1,8 +1,8 @@
 from datetime import timedelta
 
-SECRET_KEY = '108b685669703a108f453dafdce3caa'
-CLIENT_ID = '896ccf1efb303a2172d555d7f7036c71'
+CLIENT_ID = 'bf1b79932fc7a7e12ace4b9419efbd85'
 REDIRECT_URI = 'http://localhost:5001/oauth'
+SECRET_KEY = 'f1b04c6db17e33c4fd081a160ebafb5b'
 
 DATABASE_PATH = 'database.db'
 PERMANENT_SESSION_LIFETIME = timedelta(minutes=1)
