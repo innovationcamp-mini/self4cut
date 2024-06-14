@@ -18,6 +18,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+
     <style>
       body {
         font-family: "Arial", sans-serif;
@@ -32,14 +33,14 @@
         width: 55%;
         padding: 20px;
       }
-      .palleteContainer {
+      .paletteContainer {
         position: relative;
         width: 75%;
         padding: 20px;
       }
       .basic,
       .wide,
-      .pallete {
+      .palette {
         background-color: white;
         padding: 20px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -108,6 +109,28 @@
         color: #6c757d;
         font-size: 1.2rem;
       }
+
+      .buttonGroup {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
+
+      .paletteLine {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        flex-direction: row;
+        margin-bottom: 10px;
+      }
+      .colorPalette {
+        width: 70px;
+        height: 70px;
+        border-radius: 15%;
+        cursor: pointer;
+      }
     </style>
   </head>
   <body>
@@ -116,16 +139,16 @@
         <div class="col-md-4">
           <div class="basic" id="basicSection">
             <div class="inner-div">
-              <img src="../images/ex_basic1.jpeg" alt="ex_basic1" />
+              <img src="../static/images/ex_basic1.jpeg" alt="ex_basic1" />
             </div>
             <div class="inner-div">
-              <img src="../images/ex_basic2.jpeg" alt="ex_basic2" />
+              <img src="../static/images/ex_basic2.jpeg" alt="ex_basic2" />
             </div>
             <div class="inner-div">
-              <img src="../images/ex_basic3.jpeg" alt="ex_basic3" />
+              <img src="../static/images/ex_basic3.jpeg" alt="ex_basic3" />
             </div>
             <div class="inner-div">
-              <img src="../images/ex_basic4.jpeg" alt="ex_basic4" />
+              <img src="../static/images/ex_basic4.jpeg" alt="ex_basic4" />
             </div>
           </div>
           <h2 class="text-center mt-3">Basic</h2>
@@ -134,22 +157,22 @@
           <div class="row wide" id="wideSection">
             <div class="col-6">
               <div class="inner-div">
-                <img src="../images/ex_wide1.jpeg" alt="ex_wide1" />
+                <img src="../static/images/ex_wide1.jpeg" alt="ex_wide1" />
               </div>
             </div>
             <div class="col-6">
               <div class="inner-div">
-                <img src="../images/ex_wide2.jpeg" alt="ex_wide2" />
+                <img src="../static/images/ex_wide2.jpeg" alt="ex_wide2" />
               </div>
             </div>
             <div class="col-6">
               <div class="inner-div">
-                <img src="../images/ex_wide3.jpeg" alt="ex_wide3" />
+                <img src="../static/images/ex_wide3.jpeg" alt="ex_wide3" />
               </div>
             </div>
             <div class="col-6">
               <div class="inner-div">
-                <img src="../images/ex_wide4.jpeg" alt="ex_wide4" />
+                <img src="../static/images/ex_wide4.jpeg" alt="ex_wide4" />
               </div>
             </div>
           </div>
@@ -171,114 +194,253 @@
       <i class="fa-solid fa-circle-arrow-left" style="font-size: 50px"></i>
     </p>
 
-    <div class="palleteContainer" id="step2" style="display: none">
-      <div class="row align-items-center">
-        <!-- Step 2 content goes here -->
-        <div class="col" id="basicContent" style="display: none">
-          <div class="basic">
-            <div class="inner-div">
-              <label for="basicFile1">사진을 선택하세요</label>
-              <input
-                type="file"
-                id="basicFile1"
-                accept="image/*"
-                onchange="previewImage(event, 'basicFile1')"
-              />
-              <img id="basicImg1" alt="Preview" />
-            </div>
-            <div class="inner-div">
-              <label for="basicFile2">사진을 선택하세요</label>
-              <input
-                type="file"
-                id="basicFile2"
-                accept="image/*"
-                onchange="previewImage(event, 'basicFile2')"
-              />
-              <img id="basicImg2" alt="Preview" />
-            </div>
-            <div class="inner-div">
-              <label for="basicFile3">사진을 선택하세요</label>
-              <input
-                type="file"
-                id="basicFile3"
-                accept="image/*"
-                onchange="previewImage(event, 'basicFile3')"
-              />
-              <img id="basicImg3" alt="Preview" />
-            </div>
-            <div class="inner-div">
-              <label for="basicFile4">사진을 선택하세요</label>
-              <input
-                type="file"
-                id="basicFile4"
-                accept="image/*"
-                onchange="previewImage(event, 'basicFile4')"
-              />
-              <img id="basicImg4" alt="Preview" />
-            </div>
-          </div>
-        </div>
-        <div class="col" id="wideContent" style="display: none">
-          <div class="row wide" id="wideSection">
-            <div class="col-6">
+    <div class="paletteContainer" id="step2" style="display: none">
+      <form id="uploadForm" enctype="multipart/form-data">
+        <div class="row align-items-center">
+          <!-- Step 2 content goes here -->
+          <div class="col" id="basicContent" style="display: none">
+            <div class="basic" id="basicCapture">
               <div class="inner-div">
-                <label for="wideFile1">사진을 선택하세요</label>
+                <label for="basicFile1">사진을 선택하세요</label>
                 <input
                   type="file"
-                  id="wideFile1"
+                  id="basicFile1"
+                  name="photos"
                   accept="image/*"
-                  onchange="previewImage(event, 'wideFile1')"
+                  onchange="previewImage(event, 'basicFile1')"
                 />
-                <img id="wideImg1" alt="Preview" />
+                <img id="basicImg1" alt="Preview" />
               </div>
-            </div>
-            <div class="col-6">
               <div class="inner-div">
-                <label for="wideFile2">사진을 선택하세요</label>
+                <label for="basicFile2">사진을 선택하세요</label>
                 <input
                   type="file"
-                  id="wideFile2"
+                  id="basicFile2"
+                  name="photos"
                   accept="image/*"
-                  onchange="previewImage(event, 'wideFile2')"
+                  onchange="previewImage(event, 'basicFile2')"
                 />
-                <img id="wideImg2" alt="Preview" />
+                <img id="basicImg2" alt="Preview" />
               </div>
-            </div>
-            <div class="col-6">
               <div class="inner-div">
-                <label for="wideFile3">사진을 선택하세요</label>
+                <label for="basicFile3">사진을 선택하세요</label>
                 <input
                   type="file"
-                  id="wideFile3"
+                  id="basicFile3"
+                  name="photos"
                   accept="image/*"
-                  onchange="previewImage(event, 'wideFile3')"
+                  onchange="previewImage(event, 'basicFile3')"
                 />
-                <img id="wideImg3" alt="Preview" />
+                <img id="basicImg3" alt="Preview" />
               </div>
-            </div>
-            <div class="col-6">
               <div class="inner-div">
-                <label for="wideFile4">사진을 선택하세요</label>
+                <label for="basicFile4">사진을 선택하세요</label>
                 <input
                   type="file"
-                  id="wideFile4"
+                  id="basicFile4"
+                  name="photos"
                   accept="image/*"
-                  onchange="previewImage(event, 'wideFile4')"
+                  onchange="previewImage(event, 'basicFile4')"
                 />
-                <img id="wideImg4" alt="Preview" />
+                <img id="basicImg4" alt="Preview" />
               </div>
             </div>
           </div>
-        </div>
+          <div class="col" id="wideContent" style="display: none">
+            <div class="row wide" id="wideCapture">
+              <div class="col-6">
+                <div class="inner-div">
+                  <label for="wideFile1">사진을 선택하세요</label>
+                  <input
+                    type="file"
+                    id="wideFile1"
+                    name="photos"
+                    accept="image/*"
+                    onchange="previewImage(event, 'wideFile1')"
+                  />
+                  <img id="wideImg1" alt="Preview" />
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="inner-div">
+                  <label for="wideFile2">사진을 선택하세요</label>
+                  <input
+                    type="file"
+                    id="wideFile2"
+                    name="photos"
+                    accept="image/*"
+                    onchange="previewImage(event, 'wideFile2')"
+                  />
+                  <img id="wideImg2" alt="Preview" />
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="inner-div">
+                  <label for="wideFile3">사진을 선택하세요</label>
+                  <input
+                    type="file"
+                    id="wideFile3"
+                    name="photos"
+                    accept="image/*"
+                    onchange="previewImage(event, 'wideFile3')"
+                  />
+                  <img id="wideImg3" alt="Preview" />
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="inner-div">
+                  <label for="wideFile4">사진을 선택하세요</label>
+                  <input
+                    type="file"
+                    id="wideFile4"
+                    name="photos"
+                    accept="image/*"
+                    onchange="previewImage(event, 'wideFile4')"
+                  />
+                  <img id="wideImg4" alt="Preview" />
+                </div>
+              </div>
+            </div>
+          </div>
 
-        <div class="col-md-7" id="palleteContent">
-          <div class="pallete" id="palleteSection">hihi</div>
+            <div class="col-md-7" id="paletteContent">
+            <div class="palette" id="paletteSection">
+
+              <h3 style="margin-bottom: 25px;"><i class="fas fa-palette"> 프레임을 다양한 색상으로 변경해 보세요 !</i></h3>
+              <div class="paletteLine">
+              <div
+                class="colorPalette"
+                style="background-color: #ABDEE6"
+                onclick="handleColorClick(this.style.backgroundColor)"
+              ></div>
+              <div
+                class="colorPalette"
+                style="background-color: #fffac4"
+                onclick="handleColorClick(this.style.backgroundColor)"
+              ></div>
+              <div
+                class="colorPalette"
+                style="background-color: #9c9cc9"
+                onclick="handleColorClick(this.style.backgroundColor)"
+              ></div>
+              <div
+                class="colorPalette"
+                style="background-color: #ffff72"
+                onclick="handleColorClick(this.style.backgroundColor)"
+              ></div>
+              <div
+                class="colorPalette"
+                style="background-color: #ffd9ff"
+                onclick="handleColorClick(this.style.backgroundColor)"
+              ></div>
+              </div>
+              <div class="paletteLine">
+              <div
+                class="colorPalette"
+                style="background-color: #ff9494"
+                onclick="handleColorClick(this.style.backgroundColor)"
+              ></div>
+              <div
+                class="colorPalette"
+                style="background-color: #c8d6fb"
+                onclick="handleColorClick(this.style.backgroundColor)"
+              ></div>
+              <div
+                class="colorPalette"
+                style="background-color: #a2a2a2"
+                onclick="handleColorClick(this.style.backgroundColor)"
+              ></div>
+              <div
+                class="colorPalette"
+                style="background-color: #ffdd00"
+                onclick="handleColorClick(this.style.backgroundColor)"
+              ></div>
+              <div
+                class="colorPalette"
+                style="background-color: #e1ffc7"
+                onclick="handleColorClick(this.style.backgroundColor)"
+              ></div>
+              </div>
+              <div class="paletteLine">
+              <div
+                class="colorPalette"
+                style="background-color: #ffd7d7"
+                onclick="handleColorClick(this.style.backgroundColor)"
+              ></div>
+              <div
+                class="colorPalette"
+                style="background-color: #f0bdff"
+                onclick="handleColorClick(this.style.backgroundColor)"
+              ></div>
+              <div
+                class="colorPalette"
+                style="background-color: #ceffb0"
+                onclick="handleColorClick(this.style.backgroundColor)"
+              ></div>
+              <div
+                class="colorPalette"
+                style="background-color: #8499ff"
+                onclick="handleColorClick(this.style.backgroundColor)"
+              ></div>
+              <div
+                class="colorPalette"
+                style="background-color: #abff81"
+                onclick="handleColorClick(this.style.backgroundColor)"
+              ></div>
+              </div>
+            </div>
+            </div>
+          </div>
+
+          <div class="buttonGroup">
+            <button type="button" onclick="sendPhotos()" id="sendPhotosButton">
+              완성하기
+            </button>
+            <button
+              type="button"
+              onclick="downLoadFrame()"
+              id="downloadButton"
+              style="display: none"
+            >
+              다운로드
+            </button>
+            <!-- <button
+              type="button"
+              id="shareButton"
+              style="display: none"
+            >
+              게시하기
+            </button> -->
+          </div>
         </div>
-        <div>
-          <button onclick="sendPhotos()">사진전송</button>
+      </form>
+
+      <div class="toast-container bottom-0 start-50 translate-middle-x">
+        <div
+          id="liveToast"
+          class="toast"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+        >
+          <div class="toast-header">
+            <strong class="me-auto">사진이 완성되었습니다</strong>
+            <small>😀 📷</small>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="toast"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="toast-body">
+            <!-- 만들어진 이쁜 사진을 게시하거나 다운로드 해보세요! -->
+            만들어진 이쁜 사진을 다운로드 해보세요!
+          </div>
         </div>
       </div>
     </div>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script
@@ -286,9 +448,17 @@
       integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
       crossorigin="anonymous"
     ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+      integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
     <script>
       // 선택된 섹션을 저장하는 전역 변수
       let selectedSection = null;
+      // 선택된 색상값을 저장하는 변수 (default 는 흰색)
+      let frameColor = '#ffffff';
 
       // Basic or Wide 선택 시 함수
       document
@@ -363,50 +533,71 @@
         }
       }
 
-      //이미지 전송
+      // 이미지 전송 함수
       function sendPhotos() {
-        // 프레임형태 구분 (Basic or Wide)
-        const selectedSection = document.querySelector(".clicked").id;
-
-        // 해당 프레임에 등록된 이미지 추출
-        let fileInputs;
-        let imageIds;
-        if (selectedSection === "basicSection") {
-          fileInputs = document.querySelectorAll(
-            "#basicContent input[type='file']"
-          );
-          imageIds = ["basicImg1", "basicImg2", "basicImg3", "basicImg4"];
-        } else if (selectedSection === "wideSection") {
-          fileInputs = document.querySelectorAll(
-            "#wideContent input[type='file']"
-          );
-          imageIds = ["wideImg1", "wideImg2", "wideImg3", "wideImg4"];
-        }
-
-        // 파일전송을위한 formData 생성
-        const formData = new FormData();
-
-        // formData에 파일 추가
-        fileInputs.forEach((input, index) => {
-          const file = input.files[0];
-          const imageId = imageIds[index];
-          formData.append("photos", file, imageId);
-        });
-
-        // Send the FormData object to the server using fetch or XMLHttpRequest
-        // Replace the URL with the actual server endpoint
-        fetch("http://localhost:5000/api/upload", {
+        // formData를 사용하여 파일 전송
+        const formData = new FormData(document.getElementById("uploadForm"));
+        formData.append("section", selectedSection); // Type값 (Basic or Wide) 추가
+        formData.append("frameColor", frameColor); // 배경색값 추가
+        fetch("/api/upload", {
           method: "POST",
           body: formData,
         })
-          .then((response) => {
-            // Handle the response from the server
-            console.log("Photos uploaded successfully!");
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("이미지 전송 성공:", data);
+            showToast();
+            showOtherButtons();
           })
           .catch((error) => {
-            // Handle any errors that occurred during the upload
-            console.error("Error uploading photos:", error);
+            alert("ERROR");
+            console.error("이미지 전송 에러:", error);
           });
+      }
+      function showOtherButtons() {
+        document.getElementById("sendPhotosButton").style.display = "none";
+        document.getElementById("downloadButton").style.display = "block";
+        //document.getElementById("shareButton").style.display = "block";
+      }
+
+      function showToast() {
+        const toastLiveExample = document.getElementById("liveToast");
+        const toastBootstrap =
+          bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+        toastBootstrap.show();
+      }
+
+      function downLoadFrame() {
+        if (selectedSection === "Basic") {
+          html2canvas(document.querySelector("#basicCapture")).then(
+            (canvas) => {
+              saveAs(canvas.toDataURL("image/jpg"), "self4cut.jpg");
+            }
+          );
+        } else if (selectedSection === "Wide") {
+          html2canvas(document.querySelector("#wideCapture")).then((canvas) => {
+            saveAs(canvas.toDataURL("image/jpg"), "self4cut.jpg");
+          });
+        }
+      }
+
+      function saveAs(uri, filename) {
+        let link = document.createElement("a");
+        if (typeof uri === "string") {
+          link.href = uri;
+          link.download = filename;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        } else {
+          window.open(uri);
+        }
+      }
+
+      function handleColorClick(color) {
+        frameColor = color;
+        const selectedContentId = selectedSection === "Basic" ? "basicCapture" : "wideCapture";
+        document.getElementById(selectedContentId).style.backgroundColor = color;
       }
     </script>
   </body>

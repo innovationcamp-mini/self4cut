@@ -162,4 +162,7 @@ cython_debug/
 #.idea/
 
 #database
+*.db
 database.db
+
+static/uploads/
