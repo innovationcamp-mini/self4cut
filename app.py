@@ -4,10 +4,10 @@ from werkzeug.utils import secure_filename
 import os
 import uuid
 from config import CLIENT_ID, REDIRECT_URI, SECRET_KEY
+import requests
 
 app = Flask(__name__) 
 CORS(app)
-
 app.secret_key = SECRET_KEY
 app.config['UPLOAD_FOLDER'] = os.path.join(os.path.dirname(__file__), 'static/uploads')
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 최대 16MB 파일 크기 제한
@@ -67,7 +67,7 @@ def oauth():
         'redirect_uri': REDIRECT_URI,
         'code': code,
     }
-    token_response = requests.post(KAKAO_TOKEN_URL, data=token_data)
+    token_response = request.post(KAKAO_TOKEN_URL, data=token_data)
     token_json = token_response.json()
 
     if token_response.status_code != 200:
@@ -78,7 +78,7 @@ def oauth():
         'Authorization': f'Bearer {access_token}',
     }
 
-    profile_response = requests.get(KAKAO_PROFILE_URL, headers=profile_headers)
+    profile_response = request.get(KAKAO_PROFILE_URL, headers=profile_headers)
     profile_json = profile_response.json()
 
     if profile_response.status_code != 200:
@@ -114,7 +114,7 @@ def logout():
 @app.route('/main')
 def main():
     if 'kakao_id' not in session or 'nickname' not in session:
-        return redirect(url_for('create_frame'))
+        return redirect(url_for('home'))
     return render_template('main.html', nickname=session['nickname'])
 
 @app.route("/create")
