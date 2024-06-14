@@ -3,11 +3,20 @@ from flask_cors import CORS
 from werkzeug.utils import secure_filename
 import os
 import uuid
+from config import CLIENT_ID, REDIRECT_URI, SECRET_KEY
 
-app = Flask(__name__)
+app = Flask(__name__) 
 CORS(app)
+
+app.secret_key = SECRET_KEY
 app.config['UPLOAD_FOLDER'] = os.path.join(os.path.dirname(__file__), 'static/uploads')
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 최대 16MB 파일 크기 제한
+
+# 카카오 설정
+KAKAO_OAUTH_URL = 'https://kauth.kakao.com/oauth/authorize'
+KAKAO_TOKEN_URL = 'https://kauth.kakao.com/oauth/token'
+KAKAO_PROFILE_URL = 'https://kapi.kakao.com/v2/user/me'
+
 
 # 업로드 폴더 생성 확인
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
@@ -89,7 +98,7 @@ def oauth():
 
     session.permanent = True
     app.permanent_session_lifetime = app.config['PERMANENT_SESSION_LIFETIME']
-    return redirect(url_for('main'))
+    return redirect(url_for('create_frame'))
 
 @app.route('/profile')
 def profile():
@@ -105,12 +114,8 @@ def logout():
 @app.route('/main')
 def main():
     if 'kakao_id' not in session or 'nickname' not in session:
-        return redirect(url_for('home'))
+        return redirect(url_for('create_frame'))
     return render_template('main.html', nickname=session['nickname'])
-
-@app.route('/test')
-def test():
-    return render_template('test.html')
 
 @app.route("/create")
 def create_frame():
