@@ -118,7 +118,7 @@ def create_frame():
 
 @app.route("/select")
 def select_frame():
-    frame_list = Image.query.all()
+    frame_list = Image.query.all() # 모든 이미지를 가져옴
     return render_template('select.html', data=frame_list)
 
 @app.route("/api/upload", methods=['POST'])
