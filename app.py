@@ -5,7 +5,7 @@ import os
 import uuid
 from config import CLIENT_ID, REDIRECT_URI, SECRET_KEY
 
-app = Flask(__name__)
+app = Flask(__name__) 
 CORS(app)
 
 app.secret_key = SECRET_KEY
