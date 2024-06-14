@@ -116,6 +116,11 @@ def test():
 def create_frame():
     return render_template('frame.html')
 
+@app.route("/select")
+def select_frame():
+    frame_list = Image.query.all()
+    return render_template('select.html', data=frame_list)
+
 @app.route("/api/upload", methods=['POST'])
 def photo_upload():
     images = request.files.getlist("photos")
@@ -141,7 +146,7 @@ def photo_upload():
         image3=filenames[2],
         image4=filenames[3],
         type=request.form.get("section"),
-        background="background_placeholder",
+        background=request.form.get("frameColor"),
         shared=False
     )
     db.session.add(image_record)

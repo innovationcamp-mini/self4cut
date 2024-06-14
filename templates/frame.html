@@ -33,14 +33,14 @@
         width: 55%;
         padding: 20px;
       }
-      .palleteContainer {
+      .paletteContainer {
         position: relative;
         width: 75%;
         padding: 20px;
       }
       .basic,
       .wide,
-      .pallete {
+      .palette {
         background-color: white;
         padding: 20px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -115,6 +115,22 @@
         justify-content: center;
         margin-top: 20px;
       }
+
+      .paletteLine {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        flex-direction: row;
+        margin-bottom: 10px;
+      }
+      .colorPalette {
+        width: 70px;
+        height: 70px;
+        border-radius: 15%;
+        cursor: pointer;
+      }
     </style>
   </head>
   <body>
@@ -178,7 +194,7 @@
       <i class="fa-solid fa-circle-arrow-left" style="font-size: 50px"></i>
     </p>
 
-    <div class="palleteContainer" id="step2" style="display: none">
+    <div class="paletteContainer" id="step2" style="display: none">
       <form id="uploadForm" enctype="multipart/form-data">
         <div class="row align-items-center">
           <!-- Step 2 content goes here -->
@@ -287,8 +303,93 @@
             </div>
           </div>
 
-          <div class="col-md-7" id="palleteContent">
-            <div class="pallete" id="palleteSection">hihi</div>
+            <div class="col-md-7" id="paletteContent">
+            <div class="palette" id="paletteSection">
+
+              <h3 style="margin-bottom: 25px;"><i class="fas fa-palette"> 프레임을 다양한 색상으로 변경해 보세요 !</i></h3>
+              <div class="paletteLine">
+              <div
+                class="colorPalette"
+                style="background-color: #ABDEE6"
+                onclick="handleColorClick(this.style.backgroundColor)"
+              ></div>
+              <div
+                class="colorPalette"
+                style="background-color: #fffac4"
+                onclick="handleColorClick(this.style.backgroundColor)"
+              ></div>
+              <div
+                class="colorPalette"
+                style="background-color: #9c9cc9"
+                onclick="handleColorClick(this.style.backgroundColor)"
+              ></div>
+              <div
+                class="colorPalette"
+                style="background-color: #ffff72"
+                onclick="handleColorClick(this.style.backgroundColor)"
+              ></div>
+              <div
+                class="colorPalette"
+                style="background-color: #ffd9ff"
+                onclick="handleColorClick(this.style.backgroundColor)"
+              ></div>
+              </div>
+              <div class="paletteLine">
+              <div
+                class="colorPalette"
+                style="background-color: #ff9494"
+                onclick="handleColorClick(this.style.backgroundColor)"
+              ></div>
+              <div
+                class="colorPalette"
+                style="background-color: #c8d6fb"
+                onclick="handleColorClick(this.style.backgroundColor)"
+              ></div>
+              <div
+                class="colorPalette"
+                style="background-color: #a2a2a2"
+                onclick="handleColorClick(this.style.backgroundColor)"
+              ></div>
+              <div
+                class="colorPalette"
+                style="background-color: #ffdd00"
+                onclick="handleColorClick(this.style.backgroundColor)"
+              ></div>
+              <div
+                class="colorPalette"
+                style="background-color: #e1ffc7"
+                onclick="handleColorClick(this.style.backgroundColor)"
+              ></div>
+              </div>
+              <div class="paletteLine">
+              <div
+                class="colorPalette"
+                style="background-color: #ffd7d7"
+                onclick="handleColorClick(this.style.backgroundColor)"
+              ></div>
+              <div
+                class="colorPalette"
+                style="background-color: #f0bdff"
+                onclick="handleColorClick(this.style.backgroundColor)"
+              ></div>
+              <div
+                class="colorPalette"
+                style="background-color: #ceffb0"
+                onclick="handleColorClick(this.style.backgroundColor)"
+              ></div>
+              <div
+                class="colorPalette"
+                style="background-color: #8499ff"
+                onclick="handleColorClick(this.style.backgroundColor)"
+              ></div>
+              <div
+                class="colorPalette"
+                style="background-color: #abff81"
+                onclick="handleColorClick(this.style.backgroundColor)"
+              ></div>
+              </div>
+            </div>
+            </div>
           </div>
 
           <div class="buttonGroup">
@@ -303,9 +404,13 @@
             >
               다운로드
             </button>
-            <button type="button" id="shareButton" style="display: none">
+            <!-- <button
+              type="button"
+              id="shareButton"
+              style="display: none"
+            >
               게시하기
-            </button>
+            </button> -->
           </div>
         </div>
       </form>
@@ -329,7 +434,8 @@
             ></button>
           </div>
           <div class="toast-body">
-            만들어진 이쁜 사진을 게시하거나 다운로드 해보세요!
+            <!-- 만들어진 이쁜 사진을 게시하거나 다운로드 해보세요! -->
+            만들어진 이쁜 사진을 다운로드 해보세요!
           </div>
         </div>
       </div>
@@ -351,6 +457,8 @@
     <script>
       // 선택된 섹션을 저장하는 전역 변수
       let selectedSection = null;
+      // 선택된 색상값을 저장하는 변수 (default 는 흰색)
+      let frameColor = '#ffffff';
 
       // Basic or Wide 선택 시 함수
       document
@@ -429,7 +537,8 @@
       function sendPhotos() {
         // formData를 사용하여 파일 전송
         const formData = new FormData(document.getElementById("uploadForm"));
-        formData.append("section", selectedSection); // 구분값 추가
+        formData.append("section", selectedSection); // Type값 (Basic or Wide) 추가
+        formData.append("frameColor", frameColor); // 배경색값 추가
         fetch("/api/upload", {
           method: "POST",
           body: formData,
@@ -441,13 +550,14 @@
             showOtherButtons();
           })
           .catch((error) => {
+            alert("ERROR");
             console.error("이미지 전송 에러:", error);
           });
       }
       function showOtherButtons() {
         document.getElementById("sendPhotosButton").style.display = "none";
         document.getElementById("downloadButton").style.display = "block";
-        document.getElementById("shareButton").style.display = "block";
+        //document.getElementById("shareButton").style.display = "block";
       }
 
       function showToast() {
@@ -482,6 +592,12 @@
         } else {
           window.open(uri);
         }
+      }
+
+      function handleColorClick(color) {
+        frameColor = color;
+        const selectedContentId = selectedSection === "Basic" ? "basicCapture" : "wideCapture";
+        document.getElementById(selectedContentId).style.backgroundColor = color;
       }
     </script>
   </body>
