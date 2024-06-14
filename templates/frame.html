@@ -51,17 +51,21 @@
         align-items: center;
         width: 100%;
       }
-
+    
       .basic {
         width: 250px;
       }
-
+    
       .basic .inner-div,
       .wide .inner-div {
         background-color: #dee2e6;
-        border: 1px solid #ced4da;
         width: 100%;
         margin-bottom: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
       }
       .basic .inner-div {
         height: 150px;
@@ -78,6 +82,7 @@
         right: 20px;
         top: 50%;
         cursor: pointer;
+        display: none;
       }
       .arrowPrev {
         position: absolute;
@@ -85,17 +90,15 @@
         top: 50%;
         cursor: pointer;
       }
-
       .clicked {
         background-color: #feffd5 !important;
         box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5) !important;
       }
       .inner-div img {
-        max-height: 100%;
-        height: 100%;
         width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
-
       .inner-div input[type="file"] {
         opacity: 0;
         position: absolute;
@@ -109,13 +112,11 @@
         color: #6c757d;
         font-size: 1.2rem;
       }
-
       .buttonGroup {
         display: flex;
         justify-content: center;
         margin-top: 20px;
       }
-
       .paletteLine {
         display: flex;
         flex-wrap: wrap;
@@ -131,7 +132,30 @@
         border-radius: 15%;
         cursor: pointer;
       }
+      label {
+        width: 170px;
+        height: 110px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
+      }
+      .buttonGroup button {
+        padding: 15px;
+        margin-top: 10px;
+        border: none;
+        border-radius: 10px;
+        background-color: #000000;
+        color: white;
+        cursor: pointer;
+        font-size: x-large;
+      }
+      #basicContent {
+        padding-left: 110px;
+      }
     </style>
+    
   </head>
   <body>
     <div class="container" id="step1">
@@ -182,7 +206,7 @@
     </div>
 
     <p class="text-xl arrowNext" id="nextStep" onclick="toggleStep()">
-      <i class="fa-solid fa-circle-arrow-right" style="font-size: 50px"></i>
+      <i class="fa-solid fa-circle-arrow-right fa-beat" style="font-size: 50px"></i>
     </p>
 
     <p
@@ -198,7 +222,7 @@
       <form id="uploadForm" enctype="multipart/form-data">
         <div class="row align-items-center">
           <!-- Step 2 content goes here -->
-          <div class="col" id="basicContent" style="display: none">
+          <div class="col-md" id="basicContent" style="display: none;">
             <div class="basic" id="basicCapture">
               <div class="inner-div">
                 <label for="basicFile1">사진을 선택하세요</label>
@@ -209,7 +233,7 @@
                   accept="image/*"
                   onchange="previewImage(event, 'basicFile1')"
                 />
-                <img id="basicImg1" alt="Preview" />
+                <img id="basicImg1" alt="Preview" style="display:none"/>
               </div>
               <div class="inner-div">
                 <label for="basicFile2">사진을 선택하세요</label>
@@ -220,7 +244,7 @@
                   accept="image/*"
                   onchange="previewImage(event, 'basicFile2')"
                 />
-                <img id="basicImg2" alt="Preview" />
+                <img id="basicImg2" alt="Preview" style="display:none"/>
               </div>
               <div class="inner-div">
                 <label for="basicFile3">사진을 선택하세요</label>
@@ -231,7 +255,7 @@
                   accept="image/*"
                   onchange="previewImage(event, 'basicFile3')"
                 />
-                <img id="basicImg3" alt="Preview" />
+                <img id="basicImg3" alt="Preview" style="display:none"/>
               </div>
               <div class="inner-div">
                 <label for="basicFile4">사진을 선택하세요</label>
@@ -242,7 +266,7 @@
                   accept="image/*"
                   onchange="previewImage(event, 'basicFile4')"
                 />
-                <img id="basicImg4" alt="Preview" />
+                <img id="basicImg4" alt="Preview" style="display:none"/>
               </div>
             </div>
           </div>
@@ -258,7 +282,7 @@
                     accept="image/*"
                     onchange="previewImage(event, 'wideFile1')"
                   />
-                  <img id="wideImg1" alt="Preview" />
+                  <img id="wideImg1" alt="Preview" style="display:none"/>
                 </div>
               </div>
               <div class="col-6">
@@ -271,7 +295,7 @@
                     accept="image/*"
                     onchange="previewImage(event, 'wideFile2')"
                   />
-                  <img id="wideImg2" alt="Preview" />
+                  <img id="wideImg2" alt="Preview" style="display:none"/>
                 </div>
               </div>
               <div class="col-6">
@@ -284,7 +308,7 @@
                     accept="image/*"
                     onchange="previewImage(event, 'wideFile3')"
                   />
-                  <img id="wideImg3" alt="Preview" />
+                  <img id="wideImg3" alt="Preview" style="display:none"/>
                 </div>
               </div>
               <div class="col-6">
@@ -297,12 +321,11 @@
                     accept="image/*"
                     onchange="previewImage(event, 'wideFile4')"
                   />
-                  <img id="wideImg4" alt="Preview" />
+                  <img id="wideImg4" alt="Preview" style="display:none"/>
                 </div>
               </div>
             </div>
           </div>
-
             <div class="col-md-7" id="paletteContent">
             <div class="palette" id="paletteSection">
 
@@ -394,7 +417,7 @@
 
           <div class="buttonGroup">
             <button type="button" onclick="sendPhotos()" id="sendPhotosButton">
-              완성하기
+              <i class="far fa-images"> 완성하기</i>
             </button>
             <button
               type="button"
@@ -402,7 +425,7 @@
               id="downloadButton"
               style="display: none"
             >
-              다운로드
+            <i class="fas fa-file-download"> 다운로드</i>
             </button>
             <!-- <button
               type="button"
@@ -465,7 +488,7 @@
         .getElementById("basicSection")
         .addEventListener("click", function () {
           // 선택 시 NEXT 버튼 활성화
-          document.getElementById("nextStep").classList.add("fa-beat");
+          document.getElementById("nextStep").style.display = "block";
           deselectAll();
           this.classList.add("clicked");
           selectedSection = "Basic";
@@ -475,7 +498,7 @@
         .getElementById("wideSection")
         .addEventListener("click", function () {
           // 선택 시 NEXT 버튼 활성화
-          document.getElementById("nextStep").classList.add("fa-beat");
+          document.getElementById("nextStep").style.display = "block";
           deselectAll();
           this.classList.add("clicked");
           selectedSection = "Wide";
@@ -602,3 +625,4 @@
     </script>
   </body>
 </html>
+

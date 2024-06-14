@@ -3,6 +3,7 @@ from flask_cors import CORS
 from werkzeug.utils import secure_filename
 import os
 import uuid
+import requests
 from config import CLIENT_ID, REDIRECT_URI, SECRET_KEY
 import requests
 
